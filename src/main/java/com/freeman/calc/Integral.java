@@ -45,7 +45,6 @@ public abstract class Integral {
         boolean isFour = true;
         for(double i=interval[0]; i<=interval[1]; i+=dist) {     //Using dist or what?
             if(i!=interval[0] && i!=interval[1]) {
-//                aPart += 2*p.evaluate(i);
                 if(isFour==true) {
                     aPart += 4*p.evaluate(i);
                     isFour = false;
@@ -70,11 +69,9 @@ public abstract class Integral {
         return new double[]{fCoef, fPower};
     }
 
-    //Indef integral
-    public static Polynomial integralOfPolynomial(Polynomial polynomial) {
+    public static Polynomial indefIntegralOfPolynomial(Polynomial polynomial) {
         Map<Double, Double> pTerms = polynomial.getTerms();
         Map<Double, Double> fTerms = new HashMap();
-//        for(int i=0; i<pTerms.size(); i++) {
         double[] iTerm = new double[2];
         for(Map.Entry<Double, Double> entry : pTerms.entrySet()) {
             iTerm = integralOfTerm(entry.getKey(), entry.getValue());
@@ -82,5 +79,12 @@ public abstract class Integral {
         }
         Polynomial p = new Polynomial(fTerms);
         return p;
+    }
+
+    public static double defIntegralOfPolynomial(Polynomial polynomial, double[] interval) {
+        Polynomial newP = indefIntegralOfPolynomial(polynomial);
+        double lowIntervalValue = newP.evaluate(interval[0]);
+        double highIntervalValue = newP.evaluate(interval[1]);
+        return highIntervalValue - lowIntervalValue;
     }
 }

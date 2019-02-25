@@ -19,7 +19,7 @@ public class Main {
         Polynomial p = new Polynomial(sFunc);
 //        p.printPolynomialParts();
 
-        Polynomial f = Integral.integralOfPolynomial(p);
+        Polynomial f = Integral.indefIntegralOfPolynomial(p);
 
         System.out.println("");
         System.out.println("");
