@@ -41,6 +41,27 @@ public class Polynomial {
         this.terms = terms;
     }
 
+    public String toString() {
+        String f = "";
+        int i = 0;
+        for(Map.Entry<Double, Double> entry : this.terms.entrySet()) {
+            if(entry.getKey()>=0 && i>0) {
+                f += "+";
+            }
+
+            if(entry.getValue() != 0.0 && entry.getValue() != 1.0) {
+                f += entry.getKey() + "x^" + entry.getValue();
+            } else if(entry.getValue() == 1.0) {
+                f += entry.getKey() + "x";
+            } else {
+                f += entry.getKey();
+            }
+
+            i++;
+        }
+        return f;
+    }
+
 
 
     public double evaluate(double x) {
