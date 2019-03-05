@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Find the derivative");
+        System.out.println("Welcome to the Calculus Calculator!");
 
         System.out.println("Please enter your function: ");
         Scanner input = new Scanner(System.in);

@@ -19,7 +19,9 @@ public abstract class Derivative {
         double[] dTerm = new double[2];
         for(Map.Entry<Double, Double> entry : pTerms.entrySet()) {
             dTerm = derivativeOfTerm(entry.getKey(), entry.getValue());
-            fTerms.put(dTerm[0], dTerm[1]);
+            if(dTerm[0] != 0.0) {
+                fTerms.put(dTerm[0], dTerm[1]);
+            }
         }
         Polynomial p = new Polynomial(fTerms);
         return p;
