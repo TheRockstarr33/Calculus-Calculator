@@ -41,6 +41,10 @@ public class Polynomial {
         this.terms = terms;
     }
 
+    public Polynomial(Polynomial polynomial) {
+        this.terms = polynomial.terms;
+    }
+
     public String toString() {
         String f = "";
         int i = 0;
