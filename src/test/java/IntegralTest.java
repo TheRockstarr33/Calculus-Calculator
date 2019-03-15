@@ -57,4 +57,23 @@ public class IntegralTest {
 
         assertEquals(aaa, 210.83333333333331);
     }
+
+    @Test
+    public void isIndefIntegralOfPolynomialOk() {
+
+        Map m1 = new HashMap();
+        m1.put(3.0, 1.0);
+        m1.put(-7.0, 0.0);
+        Polynomial p1 = new Polynomial(m1);
+
+        Polynomial aaa = Integral.indefIntegralOfPolynomial(p1);
+
+        Map<Double, Double> terms = new HashMap();
+        terms.put(1.5, 2.0);
+        terms.put(-7.0, 1.0);
+
+        Polynomial bbb = new Polynomial(terms);
+
+        assertEquals(aaa, bbb);
+    }
 }

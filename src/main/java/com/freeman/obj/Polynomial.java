@@ -2,6 +2,7 @@ package com.freeman.obj;
 
 import com.freeman.calc.Derivative;
 
+import javax.swing.text.PlainDocument;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,6 +66,19 @@ public class Polynomial {
         }
         return f;
     }
+
+    public boolean equals(Object o) {
+        if(!(o instanceof Polynomial)) {
+            return false;
+        }
+        if(((Polynomial) o).getTerms().equals(this.terms)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 
 
 
