@@ -1,5 +1,6 @@
 package com.freeman.obj;
 
+import com.freeman.algbr.Solve;
 import com.freeman.calc.Derivative;
 
 import javax.swing.text.PlainDocument;
@@ -53,13 +54,26 @@ public class Polynomial {
             if(entry.getKey()>=0 && i>0) {
                 f += "+";
             }
+            String l = "";
+            String m = "";
+            if(entry.getKey().toString().endsWith(".0")) {
+                l += entry.getKey().toString().replace(".0", "");
+            } else {
+                l += entry.getKey().toString();
+            }
+
+            if(entry.getValue().toString().endsWith(".0")) {
+                m += entry.getValue().toString().replace(".0", "");
+            } else {
+                m += entry.getValue().toString();
+            }
 
             if(entry.getValue() != 0.0 && entry.getValue() != 1.0) {
-                f += entry.getKey() + "x^" + entry.getValue();
+                f += l + "x^" + m;
             } else if(entry.getValue() == 1.0) {
-                f += entry.getKey() + "x";
+                f += l + "x";
             } else {
-                f += entry.getKey();
+                f += l;
             }
 
             i++;
@@ -113,5 +127,16 @@ public class Polynomial {
 
     public Map<Double, Double> getTerms() {
         return terms;
+    }
+
+    public double[][] getExtrema() {
+        double[][] a = new double[5][2];
+
+        Polynomial polynomial = Derivative.derivativeOfPolynomial(this);
+
+//        for(int i = 0; ) {
+//            Solve.solveForX(polynomial, 0);
+//        }
+        return a;
     }
 }
