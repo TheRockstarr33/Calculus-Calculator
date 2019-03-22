@@ -9,26 +9,13 @@ import java.util.Map;
 
 public class Solve {
 
-    public static void main(String[] args) {
-        Map m2 = new HashMap();
-        m2.put(15.0, 2.0);
-        m2.put(28.0, 1.0);
-        m2.put(7.0, 0.0);
-        Polynomial p = new Polynomial(m2);
-
-        System.out.println(solveForX(p, 0.0, 0.0));
-    }
-
-    public static double solveForX(Polynomial p, double y) {
-//        Integral.
-        return 0.0;
-    }
-
     //Can find approx by derivative when solving for extrema
-    public static double solveForX(Polynomial p, double y, double approximation) {
-        int max_count = 200;
+    public static double solveForX(Polynomial p, double y) {
+//        int max_count = 200;
+        int max_count = 800;
 
-        double tolerance = 0.00000001;
+//        double tolerance = 0.00000001;
+        double tolerance = 0.00000000000001;
 
         double x = 0;
 
@@ -40,6 +27,7 @@ public class Solve {
             return x;
         } else {
             //Uncertain
+            System.out.println("UNCERTAIN: ");
             return x;
         }
     }
