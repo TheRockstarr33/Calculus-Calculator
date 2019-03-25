@@ -5,6 +5,7 @@ import com.freeman.calc.Derivative;
 
 import javax.swing.text.PlainDocument;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Polynomial {
@@ -129,14 +130,11 @@ public class Polynomial {
         return terms;
     }
 
-    public double[][] getExtrema() {
-        double[][] a = new double[5][2];
-
+    public List<Double> getExtrema() {
         Polynomial polynomial = Derivative.derivativeOfPolynomial(this);
 
-//        for(int i = 0; ) {
-//            Solve.solveForX(polynomial, 0);
-//        }
-        return a;
+        List<Double> e = Solve.solveForQuadratic(polynomial);
+
+        return e;
     }
 }
