@@ -1,6 +1,7 @@
 package com.freeman.ui.gui.views;
 
 import com.freeman.obj.Polynomial;
+import com.freeman.ui.gui.Window;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
-public class FunctionView implements ActionListener {
+public class FunctionView {
 
     Polynomial function;
 
@@ -18,6 +19,9 @@ public class FunctionView implements ActionListener {
     JLabel functionDisplayLabel;
     JButton updateFunctionButton;
 
+    final private int WIDTH = 500;
+    final private int HEIGHT = 650;
+
     public FunctionView(Polynomial function) {
         this.function = function;
         initFunctionViewSwing();
@@ -25,7 +29,9 @@ public class FunctionView implements ActionListener {
 
     protected void initFunctionViewSwing() {
         panel = new JPanel();
-        panel.setMinimumSize(new Dimension(300, 300));
+        //Possibly try using GroupLayout?
+        panel.setLayout(null);
+        panel.setMinimumSize(new Dimension(300, 300));  //Necessary???
 
         functionTextField = new JTextField("Enter a function...");
         functionTextField.addFocusListener(new FocusListener() {
@@ -44,18 +50,35 @@ public class FunctionView implements ActionListener {
                 }
             }
         });
-        //TODO: Try not to hard-code this in the future
-        functionTextField.setBounds(40, 150, 200, 30);
 
         //Make this nicer later, add a handler for updating
         functionDisplayLabel = new JLabel("f(x) = " + function.toString());
-        functionDisplayLabel.setBounds(40, 50, 200, 40);
+        functionDisplayLabel.setBounds(200, 20, 200, 40);
+        functionDisplayLabel.setSize(200, 40);
+
+        //TODO: Try not to hard-code this in the future
+        functionTextField.setBounds(40, 80, 200, 25);
+        functionTextField.setColumns(15);
+        functionTextField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                if(e.equals())
+            }
+        });
+
+
 
         updateFunctionButton = new JButton("Update function");
-        updateFunctionButton.setBounds(260, 150, 50, 30);
+        updateFunctionButton.setBounds(260, 80, 175, 25);
+        updateFunctionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setFunctionDisplayLabel(functionTextField.getText());
+            }
+        });
 
-        panel.add(functionTextField);
         panel.add(functionDisplayLabel);
+        panel.add(functionTextField);
         panel.add(updateFunctionButton);
 
         panel.setVisible(true);
@@ -79,11 +102,5 @@ public class FunctionView implements ActionListener {
 
     public JPanel getPanel() {
         return panel;
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == updateFunctionButton) {
-            setFunctionDisplayLabel(functionTextField.getText());
-        }
     }
 }

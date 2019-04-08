@@ -31,8 +31,9 @@ public class Window implements ActionListener {
         frame.add(f.getPanel());
 
         frame.setJMenuBar(menuBar);
+
+        //TODO: We need to have a way to set the size based on the current display mode
         frame.setSize(500, 650);
-//        frame.setLayout(null);
         frame.setVisible(true);
     }
 
@@ -55,6 +56,14 @@ public class Window implements ActionListener {
         help.add(about);
 
         menuBar.add(help);
+    }
+
+    public int getFrameWidth() {
+        return frame.getWidth();
+    }
+
+    public int getFrameHeight() {
+        return frame.getHeight();
     }
 
     public void actionPerformed(ActionEvent e) {
