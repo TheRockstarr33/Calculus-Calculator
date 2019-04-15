@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
-public class FunctionView {
+public class FunctionView extends View {
 
     Polynomial function;
 
@@ -21,6 +21,10 @@ public class FunctionView {
 
     final private int WIDTH = 500;
     final private int HEIGHT = 650;
+
+    public FunctionView() {
+
+    }
 
     public FunctionView(Polynomial function) {
         this.function = function;
@@ -84,6 +88,10 @@ public class FunctionView {
         panel.setVisible(true);
     }
 
+    public Polynomial getFunction() {
+        return function;
+    }
+
     //For setting from the program
     void setFunctionDisplayLabel(Polynomial polynomial) {
         this.functionDisplayLabel.setText("f(x) = " + polynomial.toString());
@@ -91,13 +99,15 @@ public class FunctionView {
 
     //For setting from the user
     void setFunctionDisplayLabel(String s) {
-        if(s.startsWith("f(x) = ")) {
-            s.replaceAll("f(x) = ", "");
+        if(!s.equals("Enter a function...")) {
+            if (s.startsWith("f(x) = ")) {
+                s.replaceAll("f(x) = ", "");
+            }
+            if (s.startsWith("f(x)=")) {
+                s.replaceAll("f(x)=", "");
+            }
+            this.functionDisplayLabel.setText("f(x) = " + s);
         }
-        if(s.startsWith("f(x)=")) {
-            s.replaceAll("f(x)=", "");
-        }
-        this.functionDisplayLabel.setText("f(x) = " + s);
     }
 
     public JPanel getPanel() {
