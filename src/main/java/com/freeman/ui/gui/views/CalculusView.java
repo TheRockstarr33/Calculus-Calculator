@@ -19,11 +19,12 @@ public class CalculusView extends View {
     JButton derivative;
 
     public CalculusView() {
-
+        initCalculusViewSwing();
     }
 
     public CalculusView(Polynomial function) {
         this.function = function;
+        className = "CalculusView";
         initCalculusViewSwing();
     }
 
@@ -68,5 +69,19 @@ public class CalculusView extends View {
         panel.add(derivative);
 
         panel.setVisible(true);
+    }
+
+    @Override
+    public Polynomial getFunction() {
+        return function;
+    }
+
+    @Override
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    public void setFunction(Polynomial p) {
+        this.function = p;
     }
 }

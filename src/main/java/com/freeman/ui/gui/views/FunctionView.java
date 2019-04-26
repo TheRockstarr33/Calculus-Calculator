@@ -1,7 +1,6 @@
 package com.freeman.ui.gui.views;
 
 import com.freeman.obj.Polynomial;
-import com.freeman.ui.gui.Window;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,6 +27,7 @@ public class FunctionView extends View {
 
     public FunctionView(Polynomial function) {
         this.function = function;
+        className = "FunctionView";
         initFunctionViewSwing();
     }
 
@@ -88,10 +88,6 @@ public class FunctionView extends View {
         panel.setVisible(true);
     }
 
-    public Polynomial getFunction() {
-        return function;
-    }
-
     //For setting from the program
     void setFunctionDisplayLabel(Polynomial polynomial) {
         this.functionDisplayLabel.setText("f(x) = " + polynomial.toString());
@@ -112,5 +108,9 @@ public class FunctionView extends View {
 
     public JPanel getPanel() {
         return panel;
+    }
+
+    public Polynomial getFunction() {
+        return function;
     }
 }

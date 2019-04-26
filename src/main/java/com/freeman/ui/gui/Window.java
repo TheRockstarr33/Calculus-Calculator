@@ -4,15 +4,10 @@ import com.freeman.obj.Polynomial;
 import com.freeman.ui.gui.views.CalculusView;
 import com.freeman.ui.gui.views.FunctionView;
 import com.freeman.ui.gui.views.View;
-import org.omg.Dynamic.Parameter;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.ObjectOutputStream;
-import java.lang.reflect.Constructor;
-import java.util.HashMap;
 
 public class Window implements ActionListener {
 
@@ -25,8 +20,6 @@ public class Window implements ActionListener {
     JMenuItem h_helpMenuItem, h_aboutMenuItem, h_versionMenuItem;
     JMenuItem v_function, v_calc;
 
-//    FunctionView funcView;
-
     View currentView;
 
     public Window(Polynomial function) {
@@ -38,15 +31,12 @@ public class Window implements ActionListener {
         initViewMenu();
         initHelpMenu();
 
-
-//        funcView = new FunctionView(function);
-
-
-//        frame.add(funcView.getPanel());
         currentView = new FunctionView(function);
         frame.add(currentView.getPanel());
 
         frame.setJMenuBar(menuBar);
+
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         //TODO: We need to have a way to set the size based on the current display mode
         frame.setSize(500, 650);
@@ -94,36 +84,23 @@ public class Window implements ActionListener {
         return frame.getHeight();
     }
 
-    protected void changeView(Object o) {
-        frame.remove(currentView.getPanel());
+    protected void changeView(View o) {
+        frame.getContentPane().removeAll();
         function = currentView.getFunction();
-//        Class<Polynomial> r = new Class<>();
-//        try {
-//            Constructor con = o.getClass().getConstructor(r);
-//        } catch (NoSuchMethodException e) {
-//            e.printStackTrace();
-//        }
-
-
-
-
 
         try {
-            Constructor c = View.class.getDeclaredConstructor(Polynomial.class);
-//            Constructor c = Object.class.getDeclaredConstructor();
-            c.setAccessible(true);
-            currentView = (View) c.newInstance(function);
+            if(o.getClassName().equals("FunctionView")) {
+                currentView = new FunctionView(function);
+            } else if(o.getClassName().equals("CalculusView")) {
+                currentView = new CalculusView(function);
+            }
         } catch (Exception e) {
             System.out.println("Failed to change view. ");
-            System.out.println("changeView(Object o) in Window.java");
+            System.out.println("changeView(Object o) in Window.java for reason: " + e);
         }
+        frame.getContentPane().add(currentView.getPanel());
 
-
-
-
-
-
-        frame.add(currentView.getPanel());
+        frame.setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -138,8 +115,6 @@ public class Window implements ActionListener {
             JOptionPane.showMessageDialog(frame, "0.8.0", "Version",
                     JOptionPane.INFORMATION_MESSAGE);
         } else if(e.getSource() == v_function) {
-//            frame.remove(frame.getContentPane());
-//            frame.add(funcView.getPanel());
             changeView(new FunctionView(function));
         } else if(e.getSource() == v_calc) {
             changeView(new CalculusView(function));

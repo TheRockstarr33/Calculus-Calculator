@@ -9,14 +9,7 @@ public abstract class View {
     Polynomial function;
 
     JPanel panel;
-
-    public View() {
-
-    }
-
-    public View(Polynomial p) {
-
-    }
+    static String className;
 
     public Polynomial getFunction() {
         return function;
@@ -24,5 +17,9 @@ public abstract class View {
 
     public JPanel getPanel() {
         return panel;
+    }
+
+    public static String getClassName() {
+        return className;
     }
 }
