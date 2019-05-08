@@ -47,8 +47,9 @@ public class CalculusView extends View {
             public void actionPerformed(ActionEvent e) {
                 //TODO: Finish derivativeView programming
                 derivativeView = new DerivativeView(function);
-                derivativeView.getPanel().setVisible(true);
+//                derivativeView.getPanel().setVisible(true);
 //                panel.add(derivativeView.getPanel());
+                panel.add(derivativeView.getTextField());
             }
         });
         derivative.setToolTipText("Derivative");

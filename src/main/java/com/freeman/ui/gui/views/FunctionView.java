@@ -78,6 +78,7 @@ public class FunctionView extends View {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setFunctionDisplayLabel(functionTextField.getText());
+                function = new Polynomial(functionTextField.getText());
             }
         });
 

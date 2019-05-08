@@ -24,6 +24,7 @@ public class DerivativeView {
         panel = new JPanel();
         panel.setLayout(null);
         panel.setMinimumSize(new Dimension(300, 200));
+//        panel.setPreferredSize(new Dimension(300, 200));
 
         order = new JTextField("Order");
         order.addFocusListener(new FocusListener() {
@@ -43,11 +44,21 @@ public class DerivativeView {
                 }
             }
         });
+        order.setBounds(40, 120, 75, 25);
+        order.setColumns(3);
 
         panel.add(order);
+
+        panel.setVisible(true);
     }
 
+
+    ///TODO: Fix getPanel to return a functional panel
     public JPanel getPanel() {
         return panel;
+    }
+
+    public JTextField getTextField() {
+        return order;
     }
 }
