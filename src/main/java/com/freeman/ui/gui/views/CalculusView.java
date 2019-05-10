@@ -1,7 +1,9 @@
 package com.freeman.ui.gui.views;
 
 import com.freeman.obj.Polynomial;
+import com.freeman.ui.gui.views.calc.DefIntegralView;
 import com.freeman.ui.gui.views.calc.DerivativeView;
+import com.freeman.ui.gui.views.calc.IndefIntegralView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +22,8 @@ public class CalculusView extends View {
     JButton derivative, indefIntegral, defIntegral, list_useFunc, list_removeFunc;
     JSeparator separator;
     DerivativeView derivativeView;
+    DefIntegralView defIntegralView;
+    IndefIntegralView indefIntegralView;
     JList polynomialList;
 
     static DefaultListModel<Polynomial> lm;
@@ -82,6 +86,12 @@ public class CalculusView extends View {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                setFunctionDisplayLabel(functionTextField.getText());
+                defIntegralView = new DefIntegralView(function);
+                panel.add(defIntegralView.getBnd_high());
+                panel.add(defIntegralView.getBnd_low());
+                panel.add(defIntegralView.getIntegrate());
+                panel.repaint();
+                panel.setVisible(true);
             }
         });
         defIntegral.setToolTipText("Definite Integral");
@@ -92,19 +102,25 @@ public class CalculusView extends View {
         polynomialList = new JList(lm);
         polynomialList.setBounds(85, 200, 300, 200);
         polynomialList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        polynomialList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-        polynomialList.setVisibleRowCount(6);
+//        polynomialList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        polynomialList.setLayoutOrientation(JList.VERTICAL);
+        polynomialList.setVisibleRowCount(12);
 
         list_useFunc = new JButton("Select Function");
         list_useFunc.setBounds(85, 420, 140, 25);
         list_useFunc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                function = (Polynomial) polynomialList.getSelectedValue();
-                functionDisplayLabel.setText("f(x) = " + function.toString());
-                panel.revalidate();
-                panel.repaint();
-                panel.setVisible(true);
+                if(polynomialList.getSelectedValue()!=null) {
+                    function = (Polynomial) polynomialList.getSelectedValue();
+                    functionDisplayLabel.setText("f(x) = " + function.toString());
+                    panel.revalidate();
+                    panel.repaint();
+                    panel.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select a function",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -113,8 +129,9 @@ public class CalculusView extends View {
         list_removeFunc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                lm.remove(polynomialList.getSelectedIndex());
-                polynomialList.remove(polynomialList.getSelectedIndex());
+                int ind = polynomialList.getSelectedIndex();
+                lm.remove(ind);
+                polynomialList.remove(ind);
             }
         });
 
@@ -145,6 +162,9 @@ public class CalculusView extends View {
     }
 
     public static void addToList(Polynomial p) {
+        if(lm.size()>11) {
+            lm.remove(0);
+        }
         lm.addElement(p);
     }
 }

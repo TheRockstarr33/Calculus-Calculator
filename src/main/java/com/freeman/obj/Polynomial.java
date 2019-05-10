@@ -30,7 +30,9 @@ public class Polynomial {
                 } else if(temp[0].equals("+")) {
                     temp[0] = "1.0";
                 }
-                terms.put(Double.parseDouble(temp[0]), Double.parseDouble(temp[1]));
+                terms.put(temp[0].isEmpty() ? 1.0 : Double.parseDouble(temp[0]),
+                        Double.parseDouble(temp[1]));
+//                terms.put(Double.parseDouble(temp[0]), Double.parseDouble(temp[1]));
             } else if(t[i].contains("x")) {
                 t[i] = t[i].replace("x", "");
                 terms.put(Double.parseDouble(t[i]), 1.0);
@@ -57,7 +59,9 @@ public class Polynomial {
             }
             String l = "";
             String m = "";
-            if(entry.getKey().toString().endsWith(".0")) {
+            if(entry.getKey().toString().equals("1.0")) {
+                l += "";
+            } else if(entry.getKey().toString().endsWith(".0")) {
                 l += entry.getKey().toString().replace(".0", "");
             } else {
                 l += entry.getKey().toString();
@@ -132,9 +136,9 @@ public class Polynomial {
 
     public List<Double> getExtrema() {
         Polynomial polynomial = Derivative.derivativeOfPolynomial(this);
-
-        List<Double> e = Solve.solveForQuadratic(polynomial);
-
-        return e;
+        if(polynomial != null) {
+            return Solve.solveForQuadratic(polynomial);
+        }
+        return null;
     }
 }

@@ -69,11 +69,15 @@ public class Solve {
      */
     public static List<Double> solveForQuadratic(Polynomial p) {
         Map<Double, Double> m = p.getTerms();
-        if(m.get(2.0)!=null) {
-            return solveForXQuadratic(m.get(2.0), m.get(1.0), m.get(0.0));
-        } else {
-            return solveForXLinear(m.get(1.0), m.get(0.0));
+        if(m!=null) {
+            if (m.get(2.0) != null) {
+                return solveForXQuadratic(m.get(2.0), m.get(1.0), m.get(0.0));
+            } else {
+                return solveForXLinear(m.get(1.0), m.get(0.0));
+            }
         }
+        System.out.println("Cannot solve for null quadratic equation.");
+        return null;
     }
 
     public static List<Double> solveForXQuadratic(double a, double b, double c) {
