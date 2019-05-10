@@ -2,9 +2,12 @@ package com.freeman.ui.gui.views.calc;
 
 import com.freeman.calc.Derivative;
 import com.freeman.obj.Polynomial;
+import com.freeman.ui.gui.views.CalculusView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
@@ -14,6 +17,7 @@ public class DerivativeView {
 
     JPanel panel;
     JTextField order;
+    JButton der;
 
     public DerivativeView(Polynomial p) {
         function = p;
@@ -44,8 +48,22 @@ public class DerivativeView {
                 }
             }
         });
-        order.setBounds(40, 120, 75, 25);
+        order.setBounds(125, 140, 75, 25);
         order.setColumns(3);
+
+        der = new JButton("Find derivative");
+        der.setBounds(225, 140, 100, 25);
+        der.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Polynomial d = function;
+                for(int ord = Integer.parseInt(order.getText()); ord>0; ord--) {
+                    d = Derivative.derivativeOfPolynomial(d);
+                }
+//                System.out.println(d);
+                CalculusView.addToList(d);
+            }
+        });
 
         panel.add(order);
 
@@ -60,5 +78,9 @@ public class DerivativeView {
 
     public JTextField getTextField() {
         return order;
+    }
+
+    public JButton getDer() {
+        return der;
     }
 }
