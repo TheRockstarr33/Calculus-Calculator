@@ -83,4 +83,8 @@ public class DerivativeView {
     public JButton getDer() {
         return der;
     }
+
+    public void setFunction(Polynomial polynomial) {
+        this.function = polynomial;
+    }
 }

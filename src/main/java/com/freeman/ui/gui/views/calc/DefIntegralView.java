@@ -92,4 +92,8 @@ public class DefIntegralView {
     public JTextField getBnd_low() {
         return bnd_low;
     }
+
+    public void setFunction(Polynomial polynomial) {
+        this.function = polynomial;
+    }
 }

@@ -77,8 +77,13 @@ public class FunctionView extends View {
         updateFunctionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setFunctionDisplayLabel(functionTextField.getText());
-                function = new Polynomial(functionTextField.getText());
+                try {
+                    function = new Polynomial(functionTextField.getText());
+                    setFunctionDisplayLabel(functionTextField.getText());
+                } catch(NumberFormatException exception) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid function",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 

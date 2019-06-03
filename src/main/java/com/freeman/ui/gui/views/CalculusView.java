@@ -9,8 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 public class CalculusView extends View {
 
@@ -38,6 +36,34 @@ public class CalculusView extends View {
         initCalculusViewSwing();
     }
 
+    private void setFunctionInViews() {
+        if(derivativeView!=null) {
+            derivativeView.setFunction(function);
+        }
+        if(defIntegralView!=null) {
+            defIntegralView.setFunction(function);
+        }
+        if(indefIntegralView!=null) {
+            indefIntegralView.setFunction(function);
+        }
+    }
+
+    private void reset() {
+        if(derivativeView!=null) {
+            panel.remove(derivativeView.getDer());
+            panel.remove(derivativeView.getTextField());
+            panel.remove(derivativeView.getPanel());
+        }
+        if(defIntegralView!=null) {
+            panel.remove(defIntegralView.getBnd_high());
+            panel.remove(defIntegralView.getBnd_low());
+            panel.remove(defIntegralView.getIntegrate());
+        }
+        if(indefIntegralView!=null) {
+            panel.remove(indefIntegralView.getIntegrate());
+        }
+    }
+
     private void initCalculusViewSwing() {
         panel = new JPanel();
         panel.setLayout(null);
@@ -53,6 +79,7 @@ public class CalculusView extends View {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO: Finish derivativeView programming
+                reset();
                 derivativeView = new DerivativeView(function);
 //                derivativeView.getPanel().setVisible(true);
 //                panel.add(derivativeView.getPanel());
@@ -75,7 +102,11 @@ public class CalculusView extends View {
         indefIntegral.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                setFunctionDisplayLabel(functionTextField.getText());
+                reset();
+                indefIntegralView = new IndefIntegralView(function);
+                panel.add(indefIntegralView.getIntegrate());
+                panel.repaint();
+                panel.setVisible(true);
             }
         });
         indefIntegral.setToolTipText("Indefinite Integral");
@@ -86,6 +117,8 @@ public class CalculusView extends View {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                setFunctionDisplayLabel(functionTextField.getText());
+                reset();
+                panel.repaint();
                 defIntegralView = new DefIntegralView(function);
                 panel.add(defIntegralView.getBnd_high());
                 panel.add(defIntegralView.getBnd_low());
@@ -114,6 +147,7 @@ public class CalculusView extends View {
                 if(polynomialList.getSelectedValue()!=null) {
                     function = (Polynomial) polynomialList.getSelectedValue();
                     functionDisplayLabel.setText("f(x) = " + function.toString());
+                    setFunctionInViews();
                     panel.revalidate();
                     panel.repaint();
                     panel.setVisible(true);

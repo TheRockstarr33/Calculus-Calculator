@@ -4,6 +4,7 @@ import com.freeman.obj.Polynomial;
 import com.freeman.ui.gui.views.CalculusView;
 import com.freeman.ui.gui.views.FunctionView;
 import com.freeman.ui.gui.views.View;
+import com.freeman.ui.gui.views.visualize.GraphView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +19,7 @@ public class Window implements ActionListener {
 
     JMenu help, about, view;
     JMenuItem h_helpMenuItem, h_aboutMenuItem, h_versionMenuItem;
-    JMenuItem v_function, v_calc;
+    JMenuItem v_function, v_calc, v_graph;
 
     View currentView;
 
@@ -47,10 +48,13 @@ public class Window implements ActionListener {
         view = new JMenu("Views");
         v_function = new JMenuItem("Function");
         v_calc = new JMenuItem("Calculus");
+        v_graph = new JMenuItem("Graph");
         v_function.addActionListener(this);
         v_calc.addActionListener(this);
+        v_graph.addActionListener(this);
         view.add(v_function);
         view.add(v_calc);
+        view.add(v_graph);
 
         menuBar.add(view);
     }
@@ -118,6 +122,9 @@ public class Window implements ActionListener {
             changeView(new FunctionView(function));
         } else if(e.getSource() == v_calc) {
             changeView(new CalculusView(function));
+        } else if(e.getSource() == v_graph) {
+//            changeView(new GraphView(function));
+            new GraphView(function);
         }
     }
 }
