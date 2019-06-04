@@ -40,6 +40,19 @@ public class GraphView extends View {
         frame.getContentPane().add(panel);
     }
 
+    public void drawGraph() {
+        graph = new ArrayList<>();
+        for(int i=0; i<400; i++) {
+                graph.add(new Line2D.Double(i,
+                        yCoordinateToPixel(function.evaluate(yPixelToCoordinate(i))),
+                        i + 1,
+                        yCoordinateToPixel(function.evaluate(yPixelToCoordinate(i+1)))));
+        }
+        for(Shape s : graph) {
+            g2d.draw(s);
+        }
+    }
+
     public void drawAxis() {
         //TODO: Add a more flexible system for this in the future...
         xAxis = new Line2D.Double(0, 200, 400, 200);
@@ -67,12 +80,46 @@ public class GraphView extends View {
             public void paintComponent(Graphics g) {
                 g2d = (Graphics2D) g;
                 drawAxis();
+                drawGraph();
             }
         };
+    }
+
+    public double xPixelToCoordinate(int pixel) {
+        //0=-10.0
+        //200=0.0
+        //400=10.0
+        return (pixel-200)/20.0;
+    }
+
+    public double yPixelToCoordinate(int pixel) {
+        //0=10.0
+        //200=0.0
+        //400=-10.0
+        double coord = ((pixel-200)/**-1.0*/)/20.0;
+        return coord;
+    }
+
+    public int xCoordinateToPixel(double coord) {
+        return (int) (20*coord+200);
+    }
+
+    public int yCoordinateToPixel(double coord) {
+        if(coord<0.0) {
+            return (int) (coord*-20+200);
+        } else if(coord>0.0) {
+            return (int) (coord*-20+200);
+        } else {
+            return 200;
+        }
     }
 
     @Override
     public JPanel getPanel() {
         return panel;
+    }
+
+    public void setFunction(Polynomial function) {
+        this.function = function;
     }
 }

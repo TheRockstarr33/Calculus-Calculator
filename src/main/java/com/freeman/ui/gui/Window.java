@@ -124,7 +124,7 @@ public class Window implements ActionListener {
             changeView(new CalculusView(function));
         } else if(e.getSource() == v_graph) {
 //            changeView(new GraphView(function));
-            new GraphView(function);
+            GraphView gv = new GraphView(currentView.getFunction());
         }
     }
 }
