@@ -1,6 +1,7 @@
 package com.freeman.ui.gui;
 
 import com.freeman.obj.Polynomial;
+import com.freeman.ui.gui.views.ApproxView;
 import com.freeman.ui.gui.views.CalculusView;
 import com.freeman.ui.gui.views.FunctionView;
 import com.freeman.ui.gui.views.View;
@@ -19,7 +20,7 @@ public class Window implements ActionListener {
 
     JMenu help, about, view;
     JMenuItem h_helpMenuItem, h_aboutMenuItem, h_versionMenuItem;
-    JMenuItem v_function, v_calc, v_graph;
+    JMenuItem v_function, v_calc, v_graph, v_approx;
 
     View currentView;
 
@@ -49,12 +50,15 @@ public class Window implements ActionListener {
         v_function = new JMenuItem("Function");
         v_calc = new JMenuItem("Calculus");
         v_graph = new JMenuItem("Graph");
+        v_approx = new JMenuItem("Approx");
         v_function.addActionListener(this);
         v_calc.addActionListener(this);
         v_graph.addActionListener(this);
+        v_approx.addActionListener(this);
         view.add(v_function);
         view.add(v_calc);
         view.add(v_graph);
+        view.add(v_approx);
 
         menuBar.add(view);
     }
@@ -97,6 +101,8 @@ public class Window implements ActionListener {
                 currentView = new FunctionView(function);
             } else if(o.getClassName().equals("CalculusView")) {
                 currentView = new CalculusView(function);
+            } else if(o.getClassName().equals("ApproxView")) {
+                currentView = new ApproxView(function);
             }
         } catch (Exception e) {
             System.out.println("Failed to change view. ");
@@ -125,6 +131,9 @@ public class Window implements ActionListener {
         } else if(e.getSource() == v_graph) {
 //            changeView(new GraphView(function));
             GraphView gv = new GraphView(currentView.getFunction());
+        } else if(e.getSource() == v_approx) {
+            //Because we are not opening a new window yet
+            changeView(new ApproxView(function));
         }
     }
 }
